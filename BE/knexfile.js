@@ -4,15 +4,20 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
+      port: 5433,
       host: 'localhost',
-      user: 'Trevor',
-      database: 'Party Food Backend'
+      user: 'trevorfehrman',
+      database: 'template1'
     },
 
     useNullAsDefault: true,
     migrations: {
       directory: './db/migrations',
       tableName: 'dbmigrations'
+    },
+    seeds: {
+      directory: './db/seeds',
+      tableName: 'dbseeds'
     }
   },
 

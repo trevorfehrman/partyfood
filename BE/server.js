@@ -14,6 +14,6 @@ app.get('/', (req, res) => {
 	res.send("Server is running");
 });
 
-//configureRoutes(app);
+configureRoutes(app);
 
 module.exports = app;
