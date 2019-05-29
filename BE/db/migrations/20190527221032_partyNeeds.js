@@ -9,12 +9,14 @@ exports.up = function(knex, Promise) {
       .references('parties.id')
       .onDelete('CASCADE');
     table
-        .integer('brought_by_id')
-        .unsigned()
-        .references('users.id')
+      .integer('brought_by_id')
+      .unsigned()
+      .references('users.id')
+      .onDelete('CASCADE');
+    table.string('quantity');
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.scema.dropTableIfExists('partyNeeds');
+  return knex.schema.dropTableIfExists('partyNeeds');
 };

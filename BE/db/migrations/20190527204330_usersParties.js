@@ -11,5 +11,5 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   
-  return knex.scema.dropTableIfExists('usersParties');
+  return knex.schema.dropTableIfExists('usersParties');
 };
