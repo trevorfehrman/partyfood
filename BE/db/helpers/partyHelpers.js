@@ -19,7 +19,6 @@ module.exports = {
   },
 
   async createNeed(need, party_id) {
-    console.log(need, party_id)
-    db('partyNeeds').returning('id').insert(need, party_id);
+    return db('partyNeeds').returning('id').insert({need, party_id});
   }
 };

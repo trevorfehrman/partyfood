@@ -10,10 +10,9 @@ router.get('/:partyID', (req, res, next) => {
     .catch(next);
 });
 
-router.post('/:partyID/need', (req, res, next) => {
-  console.log(req.params.partyID);
+router.post('/:partyID/need', ({body: {need}, params: {partyID}}, res, next) => {
   helpers
-    .createNeed(req.body.need, req.params.partyID)
+    .createNeed(need, partyID)
     .then(response => res.status(200).json(response))
     .catch(next);
 });
