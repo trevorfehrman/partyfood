@@ -1,6 +1,5 @@
 const db = require('../dbConfig');
 
-
 module.exports = {
   async getParty(id) {
     let party = await db('parties')
@@ -19,6 +18,14 @@ module.exports = {
   },
 
   async createNeed(need, party_id) {
-    return db('partyNeeds').returning('id').insert({need, party_id});
+    return db('partyNeeds')
+      .returning('id')
+      .insert({ need, party_id });
+  },
+
+  async deleteNeed(id) {
+    return db('partyNeeds')
+      .where({ id })
+      .del();
   }
 };
