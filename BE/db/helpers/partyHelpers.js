@@ -17,15 +17,23 @@ module.exports = {
     return party;
   },
 
-  async createNeed(need, party_id) {
+  createNeed(need, party_id) {
     return db('partyNeeds')
       .returning('id')
       .insert({ need, party_id });
   },
 
-  async deleteNeed(id) {
+  deleteNeed(id) {
     return db('partyNeeds')
       .where({ id })
       .del();
+  },
+
+  updateNeed({ need, brought_by_id, quantity }, id) {
+    console.log(need, brought_by_id, quantity, id)
+    return db('partyNeeds')
+      .where({ id })
+      .returning(id)
+      .update({ need, brought_by_id, quantity});
   }
 };
