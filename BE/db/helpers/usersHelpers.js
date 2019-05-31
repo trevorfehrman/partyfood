@@ -10,5 +10,18 @@ module.exports = {
     return db('users')
       .returning('id')
       .insert({ username, email, password, img_url });
+  },
+
+  deleteUser(id) {
+    return db('users')
+      .where({ id })
+      .del();
+  },
+
+  updateUser({ username, email, password, img_url }, id) {
+    return db('users')
+      .where({ id })
+      .returning('id')
+      .update({ username, email, password, img_url });
   }
 };
