@@ -30,10 +30,9 @@ module.exports = {
   },
 
   updateNeed({ need, brought_by_id, quantity }, id) {
-    console.log(need, brought_by_id, quantity, id)
     return db('partyNeeds')
       .where({ id })
-      .returning(id)
-      .update({ need, brought_by_id, quantity});
+      .returning('id')
+      .update({ need, brought_by_id, quantity });
   }
 };

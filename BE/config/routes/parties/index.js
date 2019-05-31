@@ -18,6 +18,7 @@ router.post('/:partyId/need', ({ body: { need }, params: { partyId } }, res, nex
 });
 
 router.delete('/:partyId/need/:needId', ({ params: { needId } }, res, next) => {
+  console.log(typeof(needId))
   helpers
     .deleteNeed(needId)
     .then(response => res.status(200).json(response))
@@ -25,6 +26,7 @@ router.delete('/:partyId/need/:needId', ({ params: { needId } }, res, next) => {
 });
 
 router.put('/:partyId/need/:needId', ({ params: { needId }, body }, res, next) => {
+  console.log(typeof(needId))
   helpers
     .updateNeed(body, needId)
     .then(response => res.status(200).json(response))
