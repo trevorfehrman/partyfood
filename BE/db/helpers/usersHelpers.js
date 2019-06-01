@@ -6,7 +6,6 @@ module.exports = {
   },
 
   createUser({ username, email, password, img_url = null }) {
-    console.log(username, email, password, img_url);
     return db('users')
       .returning('id')
       .insert({ username, email, password, img_url });
@@ -18,7 +17,14 @@ module.exports = {
       .del();
   },
 
-  updateUser({ username, email, password, img_url }, id) {
+  async updateUser({ username, email, password, img_url }, id) {
+    let user = await db('users').where({ id });
+
+    username = username || user.username;
+    email = email || user.email;
+    password = password || user.password;
+    img_url = img_url || user.img_url;
+
     return db('users')
       .where({ id })
       .returning('id')

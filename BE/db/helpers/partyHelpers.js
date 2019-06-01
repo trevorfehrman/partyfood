@@ -1,6 +1,29 @@
 const db = require('../dbConfig');
 
 module.exports = {
+  async getParties() {
+    let parties = await db('parties as p')
+      .join('users as u', 'p.host', 'u.id')
+      .select('p.id', 'p.name', 'p.host', 'u.username', 'p.date');
+
+    parties = parties.map(async party => {
+      let attendees = await db('usersParties as up')
+        .where({ 'up.party_id': party.id })
+        .join('users as u', 'up.user_id', 'u.id');
+      console.log({ attendees });
+      party.attendees = attendees;
+      return party;
+    });
+
+    parties = await Promise.all(parties).then(results => {
+      console.log({ results });
+      return results;
+    });
+
+    console.log({ parties });
+    return parties;
+  },
+
   async getParty(id) {
     let party = await db('parties')
       .where({ id })
@@ -15,6 +38,18 @@ module.exports = {
     party.attendees = users;
     party.needs = needs;
     return party;
+  },
+
+  createParty({ name, host, date }) {
+    return db('parties')
+      .returning('id')
+      .insert({ name, host, date });
+  },
+
+  deleteParty(id) {
+    return db('parties')
+      .where({ id })
+      .del();
   },
 
   createNeed(need, party_id) {
