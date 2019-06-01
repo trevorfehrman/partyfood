@@ -1,6 +1,7 @@
 const db = require('../dbConfig');
 
 module.exports = {
+  //* PARTIES */
   async getParties() {
     let parties = await db('parties as p')
       .join('users as u', 'p.host', 'u.id')
@@ -9,18 +10,16 @@ module.exports = {
     parties = parties.map(async party => {
       let attendees = await db('usersParties as up')
         .where({ 'up.party_id': party.id })
-        .join('users as u', 'up.user_id', 'u.id');
-      console.log({ attendees });
+        .join('users as u', 'up.user_id', 'u.id')
+        .select('u.username', 'u.id');
       party.attendees = attendees;
       return party;
     });
 
-    parties = await Promise.all(parties).then(results => {
-      console.log({ results });
+    parties = Promise.all(parties).then(results => {
       return results;
     });
 
-    console.log({ parties });
     return parties;
   },
 
@@ -52,6 +51,8 @@ module.exports = {
       .del();
   },
 
+  //* NEEDS */
+
   createNeed(need, party_id) {
     return db('partyNeeds')
       .returning('id')
@@ -69,5 +70,26 @@ module.exports = {
       .where({ id })
       .returning('id')
       .update({ need, brought_by_id, quantity });
+  },
+
+  //* ATTENDEES */
+  getAttendees(party_id) {
+    return db('usersParties as up')
+      .join('users as u', 'up.user_id', 'u.id')
+      .select('u.id', 'u.username', 'u.email')
+      .where({ party_id });
+  },
+
+  createAttendee(party_id, user_id) {
+    return db('usersParties')
+      .returning('id')
+      .insert({ party_id, user_id });
+  },
+
+  deleteAttendee(party_id, user_id) {
+    return db('usersParties')
+      .returning('id')
+      .where({ party_id, user_id })
+      .del();
   }
 };

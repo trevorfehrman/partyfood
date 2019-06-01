@@ -3,6 +3,7 @@ const router = express.Router();
 
 const helpers = require('../../../db/helpers/partyHelpers');
 
+//** PARTIES */
 router.get('/', (req, res, next) => {
   helpers
     .getParties()
@@ -31,6 +32,7 @@ router.delete('/:partyId', (req, res, next) => {
     .catch(next);
 });
 
+//* NEEDS */
 router.post('/:partyId/need', ({ body: { need }, params: { partyId } }, res, next) => {
   helpers
     .createNeed(need, partyId)
@@ -51,5 +53,32 @@ router.put('/:partyId/need/:needId', ({ params: { needId }, body }, res, next) =
     .then(response => res.status(200).json(response))
     .catch(next);
 });
+
+//* ATTENDESS */
+
+router.get('/:partyId/attendees', ({ params: { partyId } }, res, next) => {
+  helpers
+    .getAttendees(partyId)
+    .then(response => res.status(200).json(response))
+    .catch(next);
+});
+
+router.post('/:partyId/attendees', ({ params: { partyId }, body: { userId } }, res, next) => {
+  console.log({ partyId, userId });
+  helpers
+    .createAttendee(partyId, userId)
+    .then(response => res.status(200).json(response))
+    .catch(next);
+});
+
+router.delete(
+  '/:partyId/attendees/:attendeeId',
+  ({ params: { partyId, attendeeId } }, res, next) => {
+    helpers
+      .deleteAttendee(partyId, attendeeId)
+      .then(response => res.status(200).json(response))
+      .catch(next);
+  }
+);
 
 module.exports = router;
