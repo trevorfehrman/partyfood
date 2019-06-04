@@ -1,4 +1,4 @@
-http://localhost:3400/api/parties/1/attendeesexports.up = function(knex, Promise) {
+exports.up = function(knex, Promise) {
   return knex.schema.createTable('users', table => {
     table.increments();
     table
