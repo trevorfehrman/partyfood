@@ -28,7 +28,7 @@ class Auth {
     this.idToken = authResult.idToken;
     this.userProfile = authResult.idTokenPayload;
     this.accessToken = authResult.accessToken;
-    this.loginCallback({ loggedIn: true });
+    this.loginCallback(authResult);
   }
 
   localLogout() {
@@ -43,7 +43,6 @@ class Auth {
 
   login() {
     this.auth0.popup.authorize({}, (err, authResult) => {
-      console.log(err, authResult);
       if (err) this.localLogout();
       else {
         this.localLogin(authResult);
