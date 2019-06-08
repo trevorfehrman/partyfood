@@ -18,7 +18,7 @@ const authCheck = jwt({
   algorithm: 'RS256'
 });
 
-router.get('/', (req, res, next) => {
+router.get('/', authCheck, (req, res, next) => {
   res.send('woooooooooooooO!!!!!!!!!!!!');
   console.log('sup');
 });
@@ -29,3 +29,4 @@ router.get('/authtest', authCheck, (req, res, next) => {
 });
 
 module.exports = router;
+module.exports = authCheck;

@@ -29,6 +29,7 @@ class Auth {
       idTokenPayload: { name, email }
     } = authResult;
     localStorage.setItem(this.authFlag, true);
+    localStorage.setItem('accessToken', authResult.accessToken);
     this.idToken = authResult.idToken;
     this.userProfile = authResult.idTokenPayload;
     this.accessToken = authResult.accessToken;

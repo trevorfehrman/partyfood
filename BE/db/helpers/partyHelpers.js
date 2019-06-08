@@ -2,7 +2,7 @@ const db = require('../dbConfig');
 
 module.exports = {
   //* PARTIES */
-  async getParties() {
+  async getAllParties() {
     let parties = await db('parties as p')
       .join('users as u', 'p.host', 'u.id')
       .select('p.id', 'p.name', 'p.host', 'u.username', 'p.date');
@@ -19,6 +19,15 @@ module.exports = {
     parties = Promise.all(parties).then(results => {
       return results;
     });
+
+    return parties;
+  },
+
+  async getParties(email) {
+    let parties = await db('parties as p')
+      .join('usersParties as up', 'up.party_id', 'p.id')
+      .join('users as u', 'up.user_id', 'u.id')
+      .where({ 'u.email': email });
 
     return parties;
   },

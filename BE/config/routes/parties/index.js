@@ -1,12 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const { authCheck } = require('../authRoutes');
 
 const helpers = require('../../../db/helpers/partyHelpers');
 
 //** PARTIES */
-router.get('/', (req, res, next) => {
+router.get('/allParties', (req, res, next) => {
   helpers
-    .getParties()
+    .getAllParties()
+    .then(response => res.status(200).json(response))
+    .catch(next);
+});
+
+router.get('/', ({ body: { email } }, res, next) => {
+  helpers
+    .getParties(email)
     .then(response => res.status(200).json(response))
     .catch(next);
 });

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const authCheck = require('../authRoutes');
 
 const helpers = require('../../../db/helpers/usersHelpers');
 
