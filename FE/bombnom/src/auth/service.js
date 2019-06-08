@@ -11,7 +11,7 @@ class Auth {
     scope: 'openid profile email'
   });
 
-  loginCallback = () => {};
+  loginCallback = a => {};
   logoutCallback = () => {};
 
   userProfile = null;
@@ -24,11 +24,16 @@ class Auth {
   accessToken;
 
   localLogin(authResult) {
+    const {
+      accessToken,
+      idTokenPayload: { name, email }
+    } = authResult;
     localStorage.setItem(this.authFlag, true);
     this.idToken = authResult.idToken;
     this.userProfile = authResult.idTokenPayload;
     this.accessToken = authResult.accessToken;
-    this.loginCallback(authResult);
+    this.loginCallback(state => ({ ...state, name, email, accessToken }));
+    this.loginToggleCallback(true);
   }
 
   localLogout() {

@@ -3,19 +3,15 @@ import auth from '../auth/service';
 
 const Login = props => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({name: ''});
 
-  const handleLoggedIn = authResult => {
-    console.log(authResult.idTokenPayload.name);
-    // setUserData({name: authResult.idTokenPayload.name});
-    console.log(userData);
-    setLoggedIn(true);
-  };
+  const [userData, setUserData] = useState({ name: '', email: '', accessToken: '' });
+
   const handleLoggedOut = () => {
     setLoggedIn(false);
   };
 
-  auth.loginCallback = handleLoggedIn;
+  auth.loginCallback = setUserData;
+  auth.loginToggleCallback = setLoggedIn;
   auth.logoutCallback = handleLoggedOut;
 
   return (
@@ -30,6 +26,9 @@ const Login = props => {
           Log In
         </button>
       )}
+      {userData.name ? <div>yup</div> : <div>nope</div>}
+      {userData.email ? <div>yup</div> : <div>nope</div>}
+      {userData.accessToken ? <div>{userData.accessToken}</div> : <div>nope</div>}
     </div>
   );
 };
