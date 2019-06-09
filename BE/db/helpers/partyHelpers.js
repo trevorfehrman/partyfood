@@ -27,8 +27,8 @@ module.exports = {
     let parties = await db('parties as p')
       .join('usersParties as up', 'up.party_id', 'p.id')
       .join('users as u', 'up.user_id', 'u.id')
-      .where({ 'u.email': email });
-
+      .where({ 'u.email': email })
+      .select('p.name', 'p.date');
     return parties;
   },
 

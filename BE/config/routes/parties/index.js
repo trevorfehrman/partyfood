@@ -12,7 +12,10 @@ router.get('/allParties', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/', ({ body: { email } }, res, next) => {
+router.get('/', (req, res, next) => {
+  
+  console.log(req.params, "hi der");
+  let email = req.params.email;
   helpers
     .getParties(email)
     .then(response => res.status(200).json(response))
