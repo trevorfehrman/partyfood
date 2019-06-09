@@ -8,6 +8,7 @@ exports.seed = function(knex, Promise) {
         {id: 1, user_id: 1, party_id: 1},
         {id: 2, user_id: 2, party_id: 1},
         {id: 3, user_id: 3, party_id: 1},
+        {id: 4, user_id: 1, party_id: 2},
       ]);
     });
 };

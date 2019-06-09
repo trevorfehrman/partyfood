@@ -24,21 +24,25 @@ class Auth {
   accessToken;
 
   localLogin(authResult) {
+    console.log(authResult);
     const {
       accessToken,
-      idTokenPayload: { name, email }
+      idTokenPayload: { name, email, picture }
     } = authResult;
     localStorage.setItem(this.authFlag, true);
     localStorage.setItem('accessToken', authResult.accessToken);
+    localStorage.setItem('user', JSON.stringify({ name, email, picture }));
     this.idToken = authResult.idToken;
     this.userProfile = authResult.idTokenPayload;
     this.accessToken = authResult.accessToken;
-    this.loginCallback(state => ({ ...state, name, email, accessToken }));
+    this.loginCallback(state => ({ ...state, name, email, accessToken, picture }));
     this.loginToggleCallback(true);
   }
 
   localLogout() {
     localStorage.removeItem(this.authFlag);
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
     this.userProfile = null;
     this.logoutCallback({ loggedIn: false });
   }

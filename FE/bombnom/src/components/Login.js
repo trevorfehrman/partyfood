@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import auth from '../auth/service';
 import Homepage from './Homepage';
 
@@ -6,11 +6,21 @@ export const UserContext = createContext(null);
 
 const Login = props => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({ name: '', email: '', accessToken: '', picture: '' });
 
-  const [userData, setUserData] = useState({ name: '', email: '', accessToken: '' });
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (accessToken && user) {
+      const { name, email, picture } = user;
+      setLoggedIn(true);
+      setUserData(state => ({ ...state, name, email, picture, accessToken }));
+    }
+  }, []);
 
   const handleLoggedOut = () => {
     setLoggedIn(false);
+    localStorage.removeItem('accessToken');
   };
 
   auth.loginCallback = setUserData;
@@ -30,9 +40,6 @@ const Login = props => {
             Log In
           </button>
         )}
-        {userData.name ? <div>yup</div> : <div>nope</div>}
-        {userData.email ? <div>yup</div> : <div>nope</div>}
-        {userData.accessToken ? <div>{userData.accessToken}</div> : <div>nope</div>}
       </div>
     </UserContext.Provider>
   );
