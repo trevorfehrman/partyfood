@@ -14,8 +14,8 @@ router.get('/allParties', (req, res, next) => {
 
 router.get('/', (req, res, next) => {
   
-  console.log(req.params, "hi der");
-  let email = req.params.email;
+  console.log(req.query, "hi der");
+  let email = req.query.email;
   helpers
     .getParties(email)
     .then(response => res.status(200).json(response))

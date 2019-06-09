@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, Fragment } from 'react';
 import { UserContext } from './Login';
 
 import server from '../utils/server';
@@ -9,9 +9,9 @@ const Homepage = () => {
 
   useEffect(() => {
     server
-      .get('/parties', { params: { email: 'trevorfehrman@gmail.com' } })
+      .get('/parties', { params: { email: userData.email } })
       .then(response => {
-        console.log({ response });
+        setParties(response.data);
       })
       .catch(err => console.log(err));
   }, []);
@@ -20,7 +20,14 @@ const Homepage = () => {
     <div>
       {console.log(parties)}
       hi
-      <div>{userData.name}</div>
+      {parties.map(party => {
+        return (
+          <Fragment>
+            <div>{party.name}</div>
+            <div>{party.date}</div>
+          </Fragment>
+        );
+      })}
     </div>
   );
 };
