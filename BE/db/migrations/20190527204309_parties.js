@@ -11,6 +11,7 @@ exports.up = function(knex, Promise) {
     table.string('time').notNullable();
     table.string('location').notNullable();
     table.string('image');
+    table.string('description', 200000);
   });
 };
 

@@ -28,7 +28,7 @@ module.exports = {
       .join('usersParties as up', 'up.party_id', 'p.id')
       .join('users as u', 'up.user_id', 'u.id')
       .where({ 'u.email': email })
-      .select('p.name', 'p.date', 'p.time', 'p.location', 'p.host', 'p.image', 'p.id');
+      .select('p.name', 'p.date', 'p.time', 'p.location', 'p.host', 'p.image', 'p.id', 'p.description');
 
     parties = parties.map(async party => {
       let host = await db('users as u')

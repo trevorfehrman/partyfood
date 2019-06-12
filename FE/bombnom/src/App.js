@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Login from './components/Login';
@@ -10,6 +11,9 @@ let theme = createMuiTheme({
     },
     secondary: {
       main: '#263238'
+    },
+    textPrimary: {
+      main: 'green'
     }
   },
   typography: {
@@ -25,7 +29,9 @@ class App extends Component {
       <Fragment>
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
-          <Login />
+          <Router>
+            <Login />
+          </Router>
         </MuiThemeProvider>
       </Fragment>
     );

@@ -6,15 +6,15 @@ export const UserContext = createContext(null);
 
 const Login = props => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({ name: '', email: '', accessToken: '', picture: '' });
+  const [userData, setUserData] = useState({ name: '', email: '', accessToken: '', picture: '', description:'' });
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     const user = JSON.parse(localStorage.getItem('user'));
     if (accessToken && user) {
-      const { name, email, picture } = user;
+      const { name, email, picture, description } = user;
       setLoggedIn(true);
-      setUserData(state => ({ ...state, name, email, picture, accessToken }));
+      setUserData(state => ({ ...state, name, email, picture, description, accessToken }));
     }
   }, []);
 
