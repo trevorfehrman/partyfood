@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
-import { useScrollTrigger } from '@material-ui/core';
 const useStyles = makeStyles({
   logo: {
     fontFamily: "'Bungee Shade', cursive",

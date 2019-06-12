@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 
 import Typography from '@material-ui/core/Typography';
@@ -35,40 +36,44 @@ const PartyCard = ({ party, userData }) => {
   return (
     <Fragment>
       <Card className={classes.card} key={party.id}>
-        <div className={classes.cardHeaderContainer}>
-          <CardHeader
-            title={party.name}
-            titleTypographyProps={{ variant: 'h5' }}
-            subheader={
-              <Typography color='primary' variant='h6'>
-                <Typography variant='h6' display='inline' color='secondary'>
-                  Hosted By:
-                </Typography>
-                {'   ' + party.host}
-              </Typography>
-            }
-            avatar={
-              <Avatar
-                classes={{ root: classes.avatar }}
-                alt={userData.name}
-                src={userData.picture}
-              />
-            }
-          />
-          <div className={classes.nameAndHost}>
+        <Link to={`/parties/${party.id}`}>
+          <div className={classes.cardHeaderContainer}>
             <CardHeader
-              title={
-                <Typography color='secondary' variant='h5'>
-                  {party.location}
-                </Typography>
+              title={party.name}
+              titleTypographyProps={{ variant: 'h5' }}
+              subheader={
+                <div>
+                  <Typography variant='h6' display='inline' color='secondary'>
+                    Hosted By:
+                  </Typography>
+                  <Typography style={{marginLeft: '1rem'}}color='primary' variant='h6' display='inline'>
+                    {party.host}
+                  </Typography>
+                </div>
               }
-              subheader={party.date + '   |   ' + party.time}
-              subheaderTypographyProps={{ color: 'primary', variant: 'h6' }}
-              classes={{ content: classes.nameAndHost }}
+              avatar={
+                <Avatar
+                  classes={{ root: classes.avatar }}
+                  alt={userData.name}
+                  src={userData.picture}
+                />
+              }
             />
+            <div className={classes.nameAndHost}>
+              <CardHeader
+                title={
+                  <Typography color='secondary' variant='h5'>
+                    {party.location}
+                  </Typography>
+                }
+                subheader={party.date + '   |   ' + party.time}
+                subheaderTypographyProps={{ color: 'primary', variant: 'h6' }}
+                classes={{ content: classes.nameAndHost }}
+              />
+            </div>
           </div>
-        </div>
-        <CardMedia className={classes.picture} image={party.image} />
+          <CardMedia className={classes.picture} image={party.image} />
+        </Link>
         <CardContent>
           <Typography variant='body1'>{party.description}</Typography>
         </CardContent>

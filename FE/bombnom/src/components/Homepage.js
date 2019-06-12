@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, Fragment } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from './Login';
 import PartyCard from './PartyCard';
 import Header from './Header';
@@ -54,7 +54,7 @@ const Homepage = () => {
       <Header />
       <div className={classes.cardContainer}>
         {parties.map(party => {
-          return <PartyCard userData={userData} party={party} />;
+          return <PartyCard key={party.id} userData={userData} party={party} />;
         })}
       </div>
       <Fab className={classes.add} color='primary' aria-label='Add'>
