@@ -24,14 +24,13 @@ class Auth {
   accessToken;
 
   localLogin(authResult) {
-    console.log(authResult);
     const {
       accessToken,
       idTokenPayload: { name, email, picture }
     } = authResult;
     localStorage.setItem(this.authFlag, true);
-    localStorage.setItem('accessToken', authResult.accessToken);
-    localStorage.setItem('user', JSON.stringify({ name, email, picture }));
+    // localStorage.setItem('accessToken', authResult.accessToken);
+    localStorage.setItem('user', JSON.stringify({ name, email, picture, accessToken }));
     this.idToken = authResult.idToken;
     this.userProfile = authResult.idTokenPayload;
     this.accessToken = authResult.accessToken;
@@ -41,7 +40,7 @@ class Auth {
 
   localLogout() {
     localStorage.removeItem(this.authFlag);
-    localStorage.removeItem('accessToken');
+    // localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
     this.userProfile = null;
     this.logoutCallback({ loggedIn: false });

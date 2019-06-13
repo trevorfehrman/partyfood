@@ -51,6 +51,7 @@ const Homepage = () => {
 
   return (
     <div>
+      {console.log(userData.picture)}
       <Header />
       <div className={classes.cardContainer}>
         {parties.map(party => {

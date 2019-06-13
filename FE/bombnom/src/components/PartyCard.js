@@ -44,7 +44,7 @@ const PartyCard = ({ party, userData }) => {
               subheader={
                 <div>
                   <Typography variant='h6' display='inline' color='secondary'>
-                    Hosted By:
+                    Host:
                   </Typography>
                   <Typography style={{marginLeft: '1rem'}}color='primary' variant='h6' display='inline'>
                     {party.host}
@@ -55,7 +55,7 @@ const PartyCard = ({ party, userData }) => {
                 <Avatar
                   classes={{ root: classes.avatar }}
                   alt={userData.name}
-                  src={userData.picture}
+                  src={party.host_pic}
                 />
               }
             />

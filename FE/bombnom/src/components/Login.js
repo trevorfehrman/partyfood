@@ -15,18 +15,17 @@ const Login = props => {
   });
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
+    // const accessToken = localStorage.getItem('accessToken');
     const user = JSON.parse(localStorage.getItem('user'));
-    if (accessToken && user) {
-      const { name, email, picture, description } = user;
+    if ( user) {
       setLoggedIn(true);
-      setUserData(state => ({ ...state, name, email, picture, description, accessToken }));
+      setUserData({...user});
     }
   }, []);
 
   const handleLoggedOut = () => {
     setLoggedIn(false);
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
   };
 
   auth.loginCallback = setUserData;

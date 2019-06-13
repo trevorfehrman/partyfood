@@ -28,14 +28,24 @@ module.exports = {
       .join('usersParties as up', 'up.party_id', 'p.id')
       .join('users as u', 'up.user_id', 'u.id')
       .where({ 'u.email': email })
-      .select('p.name', 'p.date', 'p.time', 'p.location', 'p.host', 'p.image', 'p.id', 'p.description');
+      .select(
+        'p.name',
+        'p.date',
+        'p.time',
+        'p.location',
+        'p.host',
+        'p.image',
+        'p.id',
+        'p.description'
+      );
 
     parties = parties.map(async party => {
       let host = await db('users as u')
         .where({ 'u.id': party.host })
-        .select('u.username')
+        .select('u.username', 'u.img_url')
         .first();
       party.host = host.username;
+      party.host_pic = host.img_url;
       return party;
     });
 
@@ -47,16 +57,33 @@ module.exports = {
   },
 
   async getParty(id) {
-    let party = await db('parties')
-      .where({ id })
-      .first();
+    let party = await db('parties as p')
+      .join('users as u', 'u.id', 'p.host')
+      .where({ 'p.id': id })
+      .first()
+      .select(
+        'p.id',
+        'p.name',
+        'p.date',
+        'p.time',
+        'p.location',
+        'p.image',
+        'p.description',
+        'u.username as host',
+        'u.email',
+        'u.img_url'
+      );
+
     let users = await db('usersParties as up')
       .join('users as u', 'u.id', 'up.user_id')
-      .where({ 'up.party_id': id });
+      .where({ 'up.party_id': id })
+      .select('u.username', 'u.email', 'u.img_url', 'u.id');
+
     let needs = await db('partyNeeds as pn')
       .leftJoin('users as u', 'u.id', 'pn.brought_by_id')
       .where({ 'pn.party_id': id })
       .select('pn.id', 'pn.need', 'pn.brought_by_id', 'pn.quantity', 'u.username');
+
     party.attendees = users;
     party.needs = needs;
     return party;

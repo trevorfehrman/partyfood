@@ -14,7 +14,6 @@ router.get('/allParties', (req, res, next) => {
 
 router.get('/', (req, res, next) => {
   
-  console.log(req.query, "hi der");
   let email = req.query.email;
   helpers
     .getParties(email)
@@ -75,7 +74,6 @@ router.get('/:partyId/attendees', ({ params: { partyId } }, res, next) => {
 });
 
 router.post('/:partyId/attendees', ({ params: { partyId }, body: { userId } }, res, next) => {
-  console.log({ partyId, userId });
   helpers
     .createAttendee(partyId, userId)
     .then(response => res.status(200).json(response))
