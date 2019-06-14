@@ -80,10 +80,31 @@ module.exports = {
       .select('u.username', 'u.email', 'u.img_url', 'u.id');
 
     let needs = await db('partyNeeds as pn')
-      // .leftJoin('users as u', 'u.id', 'pn.brought_by_id')
       .where({ 'pn.party_id': id })
-      // .select('pn.id', 'pn.need', 'pn.brought_by_id', 'pn.quantity', 'u.username');
-      // .select('pn.id', 'pn.need', 'pn.brought_by_id', 'pn.quantity');
+      .select(
+        'pn.id',
+        'pn.party_id',
+        'pn.need',
+        'pn.priority',
+        'pn.quantity',
+        'pn.quantity_fulfilled',
+        'pn.quantity_unit',
+        'pn.notes',
+        'pn.defined'
+      );
+
+    needs = needs.map(async need => {
+      let bringers = await db('usersNeeds as un')
+        .where({ 'un.need_id': need.id })
+        .join('users as u', 'un.user_id', 'u.id')
+        .select('u.username', 'u.email', 'u.img_url', 'un.id', 'un.quantity_fulfilled');
+      need.bringers = bringers;
+      return need;
+    });
+
+    needs = await Promise.all(needs).then(results => {
+      return results;
+    });
 
     party.attendees = users;
     party.needs = needs;
