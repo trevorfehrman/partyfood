@@ -13,10 +13,13 @@ exports.up = function(knex, Promise) {
       .integer('quantity')
       .unsigned()
       .notNullable();
+    table
+      .integer('quantity_fulfilled')
+      .unsigned()
+      .notNullable();
     table.string('quantity_unit');
     table.string('notes', 7000);
-    table.boolean('fulfilled').notNullable();
-    table.boolean('definied').notNullable();
+    table.boolean('defined').notNullable();
   });
 };
 

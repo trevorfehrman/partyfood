@@ -80,9 +80,10 @@ module.exports = {
       .select('u.username', 'u.email', 'u.img_url', 'u.id');
 
     let needs = await db('partyNeeds as pn')
-      .leftJoin('users as u', 'u.id', 'pn.brought_by_id')
+      // .leftJoin('users as u', 'u.id', 'pn.brought_by_id')
       .where({ 'pn.party_id': id })
-      .select('pn.id', 'pn.need', 'pn.brought_by_id', 'pn.quantity', 'u.username');
+      // .select('pn.id', 'pn.need', 'pn.brought_by_id', 'pn.quantity', 'u.username');
+      // .select('pn.id', 'pn.need', 'pn.brought_by_id', 'pn.quantity');
 
     party.attendees = users;
     party.needs = needs;
