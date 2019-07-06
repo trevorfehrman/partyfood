@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 const Homepage = () => {
   const userData = useContext(UserContext);
   const [parties, setParties] = useState([]);
-
+  
   useEffect(() => {
     server
       .get('/parties', { params: { email: userData.email } })

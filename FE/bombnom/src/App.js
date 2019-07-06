@@ -7,7 +7,8 @@ import Login from './components/Login';
 let theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#d50000'
+      main: '#d50000',
+      veryLight: 'rgba(249, 154, 154, 0.32)'
     },
     secondary: {
       main: '#263238'

@@ -1,13 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/styles';
 import clsx from 'clsx';
 
 const useStyles = makeStyles({
-  grid: {
+  grid: theme => ({
     gridArea: 'host',
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(13rem, 1fr))'
-  },
+    gridTemplateColumns: 'repeat(auto-fill, minmax(13rem, 1fr))',
+    backgroundColor: theme.palette.secondary.light
+  }),
   aspectRatio: {
     paddingTop: '100%'
   },
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
     top: 0,
     left: 0,
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   attendee: {
     height: '30%',
@@ -29,7 +30,8 @@ const useStyles = makeStyles({
 });
 
 const Attendees = ({ party }) => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
   return (
     <section className={classes.grid}>
       <aside className={classes.aspectRatio} />
