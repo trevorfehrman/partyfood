@@ -33,10 +33,19 @@ const useStyles = makeStyles({
       position: 'relative'
     }
   },
-  picture: {
+  picture: party => ({
     gridArea: 'picture',
-    maxWidth: '100%'
-  },
+    maxWidth: '100%',
+    backgroundImage: `url(${party.image})`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+
+    '& img': {
+      maxWidth: '100%',
+      height: 'auto'
+    }
+  }),
   needsGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(22rem, 1fr))',
@@ -70,13 +79,13 @@ const Party = ({
       .catch(err => console.log(err));
   }, [id]);
 
-  const classes = useStyles();
+  const classes = useStyles(party);
 
   return (
     <div>
       <div className={classes.gridContainer}>
         {console.log(party)}
-        <img className={classes.picture} alt={party.name} src={party.image} />
+        <div className={classes.picture} />
 
         <Header party={party} />
         <Attendees party={party} />

@@ -24,8 +24,8 @@ const useStyles = makeStyles({
     '&:hover': {
       zIndex: 10,
       boxShadow: '0 1rem 1rem 1rem rgba(79, 79, 79, 0.5)',
-      backgroundColor:
-        need.priority === 1
+      backgroundColor: fulfilled
+        ? need.priority === 1
           ? '#EF5350aa'
           : need.priority === 2
           ? '#4caf50aa'
@@ -35,12 +35,13 @@ const useStyles = makeStyles({
           ? '#2196f3aa'
           : need.priority === 5
           ? '#009688aa'
-          : '#607d8baa',
+          : '#607d8baa'
+        : null,
 
       '& > div': {
         '& div': {
-          backgroundColor:
-            need.priority === 1
+          backgroundColor: fulfilled
+            ? need.priority === 1
               ? '#EF5350aa'
               : need.priority === 2
               ? '#4caf50aa'
@@ -51,8 +52,9 @@ const useStyles = makeStyles({
               : need.priority === 5
               ? '#009688aa'
               : '#607d8baa'
+            : null
         }
-      },
+      }
     }
   }),
   needContent: {
@@ -89,7 +91,8 @@ const useStyles = makeStyles({
       color: 'white',
       whiteSpace: 'nowrap',
       textOverflow: 'ellipsis',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      fontStyle: need.defined ? null : 'italic'
     }
   })
 });
@@ -99,18 +102,16 @@ const Need = ({ need, fulfilled }) => {
 
   return (
     <div key={need.id} className={classes.need}>
-      {console.log(fulfilled)}
       <div className={classes.needContent}>
         <div className={classes.needName}>
-          <Typography
-            style={{ color: 'white', textOverflow: 'elipsis' }}
-            gutterBottom={true}
-            variant='h5'
-          >
+          <Typography gutterBottom={true} variant='h5'>
             {need.need}
           </Typography>
-          <Typography style={{ color: 'white' }} gutterBottom={true} variant='h6'>
-            {need.quantity} {need.quantity_unit}
+          <Typography gutterBottom={true} variant='h6'>
+            {need.quantity - need.quantity_fulfilled > 0
+              ? need.quantity - need.quantity_fulfilled
+              : '✔'}{' '}
+            {need.quantity - need.quantity_fulfilled > 0 ? need.quantity_unit : null}
           </Typography>
         </div>
       </div>

@@ -7,6 +7,7 @@ const useStyles = makeStyles({
     gridArea: 'host',
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(13rem, 1fr))',
+    minHeight: '28rem',
     backgroundColor: theme.palette.secondary.light
   }),
   aspectRatio: {
