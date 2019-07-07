@@ -94,7 +94,14 @@ const useStyles = makeStyles({
       overflow: 'hidden',
       fontStyle: need.defined ? null : 'italic'
     }
-  })
+  }),
+  notes: {
+    '& p': {
+      padding: '1rem',
+      backgroundColor: '#3b3b3b',
+      color: 'white'
+    }
+  }
 });
 
 const Need = ({ need, fulfilled }) => {
@@ -114,7 +121,17 @@ const Need = ({ need, fulfilled }) => {
             {need.quantity - need.quantity_fulfilled > 0 ? need.quantity_unit : null}
           </Typography>
         </div>
-        <Typography gutterBottom={true} variant='subtitle1'>Hi;sdflkjsd;lfkjsd;kj</Typography>
+        {need.notes && (
+          <span className={classes.notes}>
+            <Typography gutterBottom={true} variant='body1'>
+              {need.notes}
+            </Typography>
+          </span>
+        )}
+        {need.bringers.length &&
+          need.bringers.map(bringer => {
+            return <div key={bringer.email}>{bringer.username}</div>;
+          })}
       </div>
     </div>
   );
