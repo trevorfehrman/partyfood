@@ -48,7 +48,7 @@ const useStyles = makeStyles({
   }),
   needsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(22rem, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(27rem, 1fr))',
     gridAutoRows: '1fr',
 
     '&::before': {

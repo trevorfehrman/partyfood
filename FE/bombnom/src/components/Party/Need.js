@@ -114,6 +114,7 @@ const Need = ({ need, fulfilled }) => {
             {need.quantity - need.quantity_fulfilled > 0 ? need.quantity_unit : null}
           </Typography>
         </div>
+        <Typography gutterBottom={true} variant='subtitle1'>Hi;sdflkjsd;lfkjsd;kj</Typography>
       </div>
     </div>
   );
