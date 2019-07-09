@@ -39,7 +39,7 @@ const useStyles = makeStyles({
         : null,
 
       '& > div': {
-        '& div': {
+        '& strong': {
           backgroundColor: fulfilled
             ? need.priority === 1
               ? '#EF5350aa'
@@ -96,10 +96,21 @@ const useStyles = makeStyles({
     }
   }),
   notes: {
-    '& p': {
+    '& h6': {
       padding: '1rem',
       backgroundColor: '#3b3b3b',
       color: 'white'
+    }
+  },
+  bringer: {
+    height: '17%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: '2rem',
+    borderBottom: '1px solid gray',
+    '& img': {
+      height: '100%'
     }
   }
 });
@@ -110,7 +121,7 @@ const Need = ({ need, fulfilled }) => {
   return (
     <div key={need.id} className={classes.need}>
       <div className={classes.needContent}>
-        <div className={classes.needName}>
+        <strong className={classes.needName}>
           <Typography gutterBottom={true} variant='h5'>
             {need.need}
           </Typography>
@@ -120,17 +131,23 @@ const Need = ({ need, fulfilled }) => {
               : '✔'}{' '}
             {need.quantity - need.quantity_fulfilled > 0 ? need.quantity_unit : null}
           </Typography>
-        </div>
+        </strong>
         {need.notes && (
           <span className={classes.notes}>
-            <Typography gutterBottom={true} variant='body1'>
-              {need.notes}
-            </Typography>
+            <Typography variant='subtitle1'>{need.notes}</Typography>
           </span>
         )}
-        {need.bringers.length &&
+        {need.bringers.length > 0 &&
           need.bringers.map(bringer => {
-            return <div key={bringer.email}>{bringer.username}</div>;
+            return (
+              <div className={classes.bringer}>
+                <img alt={bringer.username} src={bringer.img_url} />
+                <Typography variant='body1' key={bringer.email}>
+                  {bringer.username}
+                </Typography>
+                <Typography variant='body1'>{bringer.quantity_fulfilled}</Typography>
+              </div>
+            );
           })}
       </div>
     </div>
