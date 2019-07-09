@@ -110,7 +110,7 @@ const useStyles = makeStyles({
     paddingRight: '2rem',
     borderBottom: '1px solid gray',
     '& img': {
-      height: '100%'
+      height: '100%',
     }
   }
 });
